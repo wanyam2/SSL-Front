@@ -1,0 +1,81 @@
+.resltPage{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: stretch;
+    padding: 0px 20px;}
+
+
+.resltPage .resultBtn{
+    display: flex;
+    flex-direction: row;
+    justify-items: center;
+    align-items: center;
+    gap: 5px;
+    margin: 26px auto 43px;
+    width: 360px;
+    height: 50px;
+    border-radius: 10px;
+    background-color: #F1F5F9;
+    gap: 20px;
+    padding: 5px 10px;
+}
+
+.resltPage .resultBtn .nowPageBtn{
+    width: 180px;
+    height: 40px;
+    border: none;
+    border-radius: 10px;
+    background-color: #ffffff;
+    padding: 5px;
+}
+
+
+
+
+.resltPage .resultBtn button{
+    width: 180px;
+    height: 40px;
+    border: none;
+    padding: 5px;
+    background-color: #F1F5F9;
+}
+
+
+.resltPage .result_main{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 30px;
+    height: 40vh;
+    border: 1px solid #000000;  
+    border-radius: 8px;
+}
+
+.resltImg{
+    display: flex;
+    position: relative;
+    width: 80%;
+    height: 80%;
+}
+
+.resltPage .saveAndShareBtn{
+    display: flex;
+    flex-direction: row;
+    justify-content:space-between;
+    margin-bottom: 30px;
+}
+
+.resltPage .saveAndShareBtn button{
+    font-size: 14px;
+    width: 105px;
+    height: 35px;
+    border: 1px solid #64748B;
+    border-radius: 10px;
+    background-color: #ffffff;
+}
+
+.resltPage .saveAndShareBtn .icon{
+    margin-right: 5px;
+}

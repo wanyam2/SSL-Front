@@ -1,0 +1,7 @@
+select{
+    height: 40px;
+    border-radius: 10px;
+    display: flex;
+    align-self: stretch;
+    padding-left: 10px;
+}

@@ -1,0 +1,105 @@
+.informPage{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: stretch;
+    margin-top: 17px;
+}
+
+.informPage .main_title{
+    font-size: 16px;
+    color: #64748B;
+    margin: 0px;
+    margin-bottom: 18px;
+    margin-left: 23px;
+}
+
+.informPage .row_inform_box{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: stretch;
+    margin: 0px 20px;
+}
+
+.informPage .row_inform{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 18px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    border: 1px solid #64748B;
+    height: 83px;
+}
+
+.row_inform .fileicon{
+    font-size: 30px;
+    color: #006AFF;
+}
+
+.informPage .row_inform_text{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0 5px;  
+}
+
+.row_inform_text p{
+    font-weight: bold;
+    margin: 0;
+    font-size: 16px;
+    margin-bottom: 9px;
+}
+
+.row_inform_text span{
+    font-size: 12px;
+    color: #64748B;
+    margin-left: 3px;
+}
+
+.informPage .row_site_box{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: stretch;
+    margin: 0px 20px;
+    padding: 0px 27px;
+    border: 1px solid #000000;  
+    border-radius: 8px;
+    height: 180px;
+    gap: 20px;
+}
+
+.informPage .row_site_tilte{
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+
+.informPage .row_site_tilte .icon{
+    font-size: 24px;
+    color: #006AFF;
+}
+
+.informPage .row_site_tilte p{
+    margin: 0px;
+    font-size: 16px;
+    font-weight: bolder;
+}
+
+.informPage .row_site_link{
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    height: 35px;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #ffffff;
+    border-radius: 10px;
+    border: 1px solid #64748B;
+}
+
+.informPage .row_site_link p{
+    font-size: 14px;
+}

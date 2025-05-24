@@ -1,0 +1,60 @@
+.myPage{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: stretch;   
+}
+
+.myPage h1{
+    display: flex;
+    align-self: flex-start;
+    font-size: 20px;
+    font-weight: bolder;
+    margin-top: 40px;
+    margin-left: 20px;
+}
+
+.myPage .main_main{
+    display: flex;
+    flex-direction: column;
+    margin: 0px 20px;
+}
+
+
+.myPage .pw_link{
+    align-self: center;
+    margin-top: 20px;
+    margin-left: 20px;
+}
+
+.myPage .main_bottom{
+    display: flex;
+    align-self: center;
+    flex-direction: row;
+    margin-top: 80px;
+    gap: 15px;
+}
+
+.myPage .main_bottom button{
+    width: 180px;
+    height: 40px;
+    background-color: #ffffff;
+    border: 1px solid #64748B;
+    border-radius: 10px;
+    font-size: 14px;
+}
+
+.myPage .save_btn {
+    color: #006AFF;
+}
+
+.myPage .icon{
+    margin-right: 5px;
+}
+
+.myPage .logout_btn{
+    color: #CB4545
+}
+
+
+

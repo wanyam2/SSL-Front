@@ -1,0 +1,95 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+
+/* 로고 설정*/
+.logo{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.logoImg {
+    width: 64px;    
+}
+
+.logoText{
+    width: 117px;
+    height: 23.68px;
+}
+
+
+/* 헤더 스타일 */
+header {
+    border-bottom: 1px solid #000000;
+    height: 66px;
+    display: flex;
+    align-items: center;
+}
+
+header .backBtn{
+    font-size: 24px;
+    margin-left: 10px;
+}
+
+
+/* 파란버튼 스타일 통일*/
+.BlueBtn{
+    height: 40px;
+    border-radius: 10px;
+    background-color: #006AFF;
+    border: none;
+    color: #ffffff;
+    font-size: 16px;
+}
+
+/* 인풋박스 고정스타일*/
+.inputBox{
+    display: flex;
+    align-items: center;
+    margin-top: 3px;
+    height: 40px;
+    border-radius: 10px;
+    border:1px solid #64748B;
+    padding-left: 12px;
+}
+
+label{
+    margin-top: 10px;
+}

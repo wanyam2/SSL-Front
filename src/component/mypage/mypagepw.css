@@ -1,0 +1,60 @@
+.mypwPage {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: stretch;
+
+}
+
+.mypwPage h1 {
+    display: flex;
+    align-self: flex-start;
+    font-size: 20px;
+    font-weight: bolder;
+    margin-top: 50px;
+    margin-left: 20px;
+}
+
+.mypwPage .main_main {
+    display: flex;
+    flex-direction: column;
+    margin: 0px 20px;
+}
+
+.mypwPage .message {
+    margin-top: 16px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.message.error {
+    color: red;
+}
+
+.message.success {
+    color: green;
+}
+
+.mypwPage .main_bottom {
+    display: flex;
+    align-self: center;
+    flex-direction: row;
+    margin-top: 250px;
+}
+
+.mypwPage .main_bottom button {
+    width: 180px;
+    height: 40px;
+    background-color: #ffffff;
+    border: 1px solid #64748B;
+    border-radius: 10px;
+    font-size: 14px;
+}
+
+.mypwPage .save_btn {
+    color: #006AFF;
+}
+
+.mypwPage .icon {
+    margin-right: 5px;
+}

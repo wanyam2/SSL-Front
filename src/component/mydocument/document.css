@@ -1,0 +1,105 @@
+.pageHeader{
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-items: center;
+}
+
+header p{
+    margin: 0 auto;
+    font-size: 18px;
+    font-weight:bold;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.docPage{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: stretch;
+    padding: 0px 20px;
+}
+.docPage .main_top{
+    display: flex;
+    flex-direction: row;
+    justify-items: center;
+    align-items: center;
+    gap: 5px;
+    margin: 26px auto 43px;
+    width: 360px;
+    height: 50px;
+    border-radius: 10px;
+    background-color: #F1F5F9;
+    gap: 15px;
+    padding: 5px;
+}
+
+.docPage .main_top .nowPageBtn{
+    width: 110px;
+    height: 40px;
+    border: none;
+    border-radius: 10px;
+    background-color: #ffffff;
+    padding: 5px;
+}
+
+.docPage .main_top button{
+    width: 110px;
+    height: 40px;
+    border: none;
+    padding: 5px;
+    background-color: #F1F5F9;
+}
+
+
+.docPage .fileBtn{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 24px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    border: 1px solid #64748B;
+    width: 100%;  
+    height: 83px;
+    padding: 0 6px;
+}
+
+.fileBtn .fileicon{
+    font-size: 30px;
+    color: #006AFF;
+}
+
+.fileBtn .shareicon{
+    margin-left: auto; 
+    font-size: 28px;
+
+}
+
+.docPage .file_title{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0 5px;  
+}
+
+.file_title div{
+    display: flex;
+    flex-direction: row;
+    font-size: 16px;
+    gap: 5px;
+}
+
+.file_title p{
+    font-weight: bold;
+    margin: 0;
+    margin-bottom: 9px;
+}
+
+.file_title span{
+    font-size: 12px;
+    color: #64748B;
+    margin-left: 3px;
+}

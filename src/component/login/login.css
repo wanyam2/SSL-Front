@@ -1,0 +1,54 @@
+.loginPage .main_top {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.loginPage .main_top .logo{
+    margin-top: 106px;
+    margin-bottom: 39px;
+}
+
+.loginPage .main_top h1 {
+    margin-top: 0;
+    margin-bottom: 0;
+    font-weight: bold;
+}
+
+.loginPage .main_top p {
+    margin-top: 13px;
+    margin-bottom: 32px;
+    color: #64748B;
+}
+
+.loginPage .main_main{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: stretch;
+    padding: 0px 20px;
+    font-size: 14px;
+}
+
+.loginPage .main_main_pw{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-top: 22px;
+}
+
+/* main_main_password 추후에 비밀번호찾기 페이지 생성후 링크로 변경필요 */
+.loginPage .main_main_pw div{
+    color: #006AFF;
+}
+
+.loginPage .main_main_signUp{
+    margin-top: 22px;
+    margin-bottom: 41px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
