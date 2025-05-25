@@ -9,7 +9,7 @@ import "./summary.css";
 const Summary = () => {
     const navigate = useNavigate();
     const location = useLocation();
-    const contractId = location.state?.result?.contractId;
+    const contractId = location.state?.result?.contractId || location.state?.analysis?.contractId;
 
     const [issues, setIssues] = useState([]);
     const [laws, setLaws] = useState([]);
@@ -33,6 +33,8 @@ const Summary = () => {
             const response = await axios.get(
                 `https://port-0-mobicom-sw-contest-2025-umnqdut2blqqevwyb.sel4.cloudtype.app/api/contract/${contractId}`
             );
+
+                console.log(response.data)
 
             setIssues(response.data.issues || []);
             setLaws(response.data.laws || []);

@@ -21,38 +21,10 @@ header p{
     align-items: stretch;
     padding: 0px 20px;
 }
-.docPage .main_top{
-    display: flex;
-    flex-direction: row;
-    justify-items: center;
-    align-items: center;
-    gap: 5px;
-    margin: 26px auto 43px;
-    width: 360px;
-    height: 50px;
-    border-radius: 10px;
-    background-color: #F1F5F9;
-    gap: 15px;
-    padding: 5px;
-}
 
-.docPage .main_top .nowPageBtn{
-    width: 110px;
-    height: 40px;
-    border: none;
-    border-radius: 10px;
-    background-color: #ffffff;
-    padding: 5px;
+.docPage .main_main{
+    margin-top: 24px;
 }
-
-.docPage .main_top button{
-    width: 110px;
-    height: 40px;
-    border: none;
-    padding: 5px;
-    background-color: #F1F5F9;
-}
-
 
 .docPage .fileBtn{
     display: flex;
@@ -71,13 +43,6 @@ header p{
     font-size: 30px;
     color: #006AFF;
 }
-
-.fileBtn .shareicon{
-    margin-left: auto; 
-    font-size: 28px;
-
-}
-
 .docPage .file_title{
     display: flex;
     flex-direction: column;
@@ -102,4 +67,10 @@ header p{
     font-size: 12px;
     color: #64748B;
     margin-left: 3px;
+}
+
+.fileBtn .delicon{
+    margin-left: auto; 
+    font-size: 28px;
+
 }

@@ -26,8 +26,9 @@ const Result = () => {
             id: Date.now(),
             title: resultData.title || "OCR 결과",
             date: new Date().toLocaleDateString(),
-            image: resultData.originalImage,
+            originalImage: resultData.originalImage,
             translatedImage: resultData.translatedImage,
+            contractId: resultData.contractId
         };
 
         saved.push(newDoc);
@@ -46,7 +47,7 @@ const Result = () => {
             );
 
             // 성공 시 분석 결과와 함께 페이지 이동
-            navigate("/ocr-summary", { state: { analysis: response.data } });
+            navigate("/ocr-summary", { state: { analysis: response.data, result: resultData } });
         } catch (err) {
             console.error("법률 정보 분석 실패:", err);
             setError(`법률 정보 분석 실패: ${err.message} (${err.response?.status || "알 수 없는 오류"})`);
@@ -71,7 +72,7 @@ const Result = () => {
                 <div className="result_main">
                     <p>원본</p>
                     <img
-                        src={resultData.originalImage}
+                        src={resultData.originalImage || resultData.image}
                         alt="원본 이미지"
                         className="resltImg"
                     />

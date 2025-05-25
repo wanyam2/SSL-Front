@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import { GoArrowLeft, GoPencil, GoCheck } from "react-icons/go";
 import { IoDocumentTextOutline } from "react-icons/io5";
-import { HiArrowTopRightOnSquare } from "react-icons/hi2";
+import { TiDeleteOutline } from "react-icons/ti";
 import BottomNav from "../../lib/nav/BottomNav";
 import "./document.css";
 
@@ -11,6 +11,7 @@ const Document = () => {
     const [docs, setDocs] = useState([]);
     const [editingId, setEditingId] = useState(null);
     const [tempTitle, setTempTitle] = useState("");
+    const [isLoading, setIsLoading] = useState(false);
 
     useEffect(() => {
         const stored = JSON.parse(localStorage.getItem("savedDocs") || "[]");
@@ -37,8 +38,16 @@ const Document = () => {
     };
 
     const handleDocClick = (doc) => {
-        // 클릭 시 Result 페이지로 이미지 정보 전달
-        navigate("/ocr-result", { state: { result: doc } });
+        setIsLoading(true);
+        setTimeout(() => {
+            navigate("/ocr-result", { state: { result: doc } });
+        }, 1000);
+    };
+
+    const handleDelete = (id) => {
+        const updated = docs.filter(doc => doc.id !== id);
+        setDocs(updated);
+        localStorage.setItem("savedDocs", JSON.stringify(updated));
     };
 
     return (
@@ -47,35 +56,48 @@ const Document = () => {
                 <GoArrowLeft className="backBtn" onClick={() => navigate("/home")} />
                 <p>내 문서 기록</p>
             </header>
+
             <main className="docPage">
-                <div className="main_main">
-                    {docs.map(doc => (
-                        <div key={doc.id} className="fileBtn" onClick={() => handleDocClick(doc)}>
-                            <IoDocumentTextOutline className="fileicon" />
-                            <div className="file_title" onClick={(e) => e.stopPropagation()}>
-                                {editingId === doc.id ? (
-                                    <input
-                                        className="editInput"
-                                        value={tempTitle}
-                                        onChange={e => setTempTitle(e.target.value)}
-                                        onBlur={() => finishEdit(doc.id)}
-                                        onKeyDown={e => onKeyDown(e, doc.id)}
-                                        autoFocus
-                                    />
-                                ) : (
-                                    <p>{doc.title}</p>
-                                )}
-                                {editingId === doc.id ? (
-                                    <GoCheck className="editIcon" onClick={() => finishEdit(doc.id)} />
-                                ) : (
-                                    <GoPencil className="editIcon" onClick={() => startEdit(doc.id, doc.title)} />
-                                )}
-                                <span>{doc.date}</span>
+                {isLoading ? (
+                    <div className="loadingBox">
+                        <p>문서를 불러오는 중입니다...</p>
+                    </div>
+                ) : (
+                    <div className="main_main">
+                        {docs.map(doc => (
+                            <div key={doc.id} className="fileBtn" onClick={() => handleDocClick(doc)}>
+                                <IoDocumentTextOutline className="fileicon" />
+                                <div className="file_title" onClick={(e) => e.stopPropagation()}>
+                                    <div>
+                                        {editingId === doc.id ? (
+                                            <input
+                                                className="editInput"
+                                                value={tempTitle}
+                                                onChange={e => setTempTitle(e.target.value)}
+                                                onBlur={() => finishEdit(doc.id)}
+                                                onKeyDown={e => onKeyDown(e, doc.id)}
+                                                autoFocus
+                                            />
+                                        ) : (
+                                            <p>{doc.title}</p>
+                                        )}
+                                        {editingId === doc.id ? (
+                                            <GoCheck className="editIcon" onClick={() => finishEdit(doc.id)} />
+                                        ) : (
+                                            <GoPencil className="editIcon" onClick={() => startEdit(doc.id, doc.title)} />
+                                        )}
+                                    </div>
+                                    <span>{doc.date}</span>
+                                </div>
+
+                                <TiDeleteOutline className="delicon" onClick={(e) => {
+                                    e.stopPropagation();
+                                    handleDelete(doc.id);
+                                }} />
                             </div>
-                            <HiArrowTopRightOnSquare className="shareicon" />
-                        </div>
-                    ))}
-                </div>
+                        ))}
+                    </div>
+                )}
             </main>
             <BottomNav />
         </>
