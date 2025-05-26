@@ -1,114 +1,106 @@
-.sumaryPage{
+.sumaryPage {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: stretch;
 }
 
-.sumaryPage .main_top{
+.sumaryPage .main_top {
     align-self: center;
     margin-top: 15px;
     margin-bottom: 25px;
 }
 
-.sumaryPage .main_top span{
+.sumaryPage .main_top span {
     font-size: 11px;
     color: #64748B;
 }
 
-.sumaryPage .main_main{
+.sumaryPage .main_main {
     padding: 0 20px;
 }
-.sumaryPage .icon{
+
+.sumaryPage .icon {
     font-size: 16px;
 }
-.sumaryPage .warning_box{
+
+.sumaryPage .main_box {
     display: flex;
     flex-direction: column;
-    border: 1px solid #ff0000;  
-    border-radius: 8px;
-    color: #ff0000;
-    margin-bottom: 35px;
-}
-.sumaryPage .warning_box .warning_title{
-    display: flex;
-    flex-direction: row;
-    font-size: 14px;
-    margin-top: 15px;
-    margin-left: 15px;
-}
-
-.warning_title p{
-    margin: 0px;
-    margin-left: 7px;
-}
-
-.warning_box span{
-    font-size: 11px;
-    margin: 9px;
-}
-
-
-.sumaryPage .warning_text{
-    display: flex;
-    flex-direction: column;
-}
-
-.sumaryPage .main_box{
-    display: flex;
-    flex-direction: column;
-    border: 1px solid #64748B;  
+    border: 1px solid #64748B;
     border-radius: 8px;
     margin-bottom: 25px;
 }
 
-.sumaryPage .main_box_title{
+.sumaryPage .main_box_title {
     display: flex;
     flex-direction: row;
     gap: 5px;
     margin-top: 15px;
     margin-left: 15px;
     margin-bottom: 10px;
+    color: #004db8;
+
 }
 
-.sumaryPage .main_box_title .icon{
+.sumaryPage .main_box_title .icon {
     padding-top: 1px;
-    color: #006aff;
     font-size: 20px;
 }
 
-.sumaryPage .main_box_title p{
+.sumaryPage .main_box_title p {
     font-weight: bolder;
     margin: 0px;
 }
 
-.sumaryPage .main_box .row_title{
+.sumaryPage .main_box .row_title {
     margin: 0 auto 15px 15px;
     font-size: 14px;
 }
 
-.sumaryPage .content{
+
+
+.sumaryPage .content {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center; 
-    margin-bottom: 10px;
+    justify-content: center;
+    margin: 0 15px 10px 15px;
 }
 
-.sumaryPage .content p{
-    margin: 0 0 10px 0;
+.sumaryPage .content p {
+    margin: 0 0 12px 0;
+    line-height: 1.6;
+    width: 100%;
+    text-align: left;
+}
+
+.sumaryPage .content span{
+    font-size: 15px;
 }
 
 .sumaryPage .content .content_ex{
+    font-size: 15px;
+}
+
+.sumaryPage .content .content_ex span{
     color: #64748B;
 }
 
+.sumaryPage .content .lawlink {
+    padding: 0 5px;
+    display: inline-block;
+    max-width: 100%;
+    font-size: 14px;
+    color: #006aff;
+}
 
-.sumaryPage .detail_btn{
+
+.sumaryPage .detail_btn {
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: center; 
+    justify-content: center;
     margin: 0 25px 15px 25px;
     border: 1px solid #64748B;
     border-radius: 10px;
@@ -117,22 +109,53 @@
     gap: 5px;
 }
 
-.sumaryPage .detail_btn p{
+.sumaryPage .detail_btn p {
     margin: 8px 0;
 }
 
+.sumaryPage .warning_box {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #ff0000;
+    border-radius: 8px;
+    color: #ff0000;
+    margin-bottom: 35px;
+}
+
+.sumaryPage .warning_box .warning_title {
+    display: flex;
+    flex-direction: row;
+    font-size: 14px;
+    margin-top: 15px;
+    margin-left: 15px;
+}
+
+.warning_title p {
+    margin: 0px;
+    margin-left: 7px;
+}
+
+.warning_box span {
+    font-size: 11px;
+    margin: 9px 24px;
+}
 
 
-.sumaryPage .add_text{
+.sumaryPage .warning_text {
+    display: flex;
+    flex-direction: column;
+}
+
+.sumaryPage .add_text {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center; 
+    justify-content: center;
     font-size: 12px;
     color: #64748B;
     margin-top: 30px;
 }
 
-.sumaryPage .add_text p{
+.sumaryPage .add_text p {
     margin: 0 0 5px 0;
 }

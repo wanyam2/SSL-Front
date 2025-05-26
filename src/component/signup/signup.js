@@ -8,7 +8,7 @@ import "./signup.css";
 
 const Signup = () => {
     const location = useLocation();
-    const prevData = location.state || {}; // 전달된 정보
+    const prevData = location.state || {};
     const navigate = useNavigate();
 
     const [formData, setFormData] = useState({
@@ -17,8 +17,8 @@ const Signup = () => {
         pwCheck: "",
         workLocation: "",
         experienceYears: 0,
-        ...prevData, // nationality, language, name, phoneNum 등 포함됨
-        role: "USER",
+        ...prevData, // name, phoneNum, nationality, language
+        role: "USER"
     });
 
     const [message, setMessage] = useState("");
@@ -46,13 +46,21 @@ const Signup = () => {
         setMessage("");
 
         try {
-            const response = await axios.post(`${url}/api/users/register`, formData, {
+            const payload = {
+                username: formData.username,
+                password: formData.password,
+                phone: formData.phoneNum,
+                nickname: formData.name,
+                nationality: formData.nationality,
+                language: formData.language,
+                workLocation: formData.workLocation,
+                experienceYears: parseInt(formData.experienceYears || 0, 10),
+                role: "USER"
+            };
+
+            const response = await axios.post(`${url}/api/users/register`, payload, {
                 headers: { 'Content-Type': 'application/json' }
             });
-
-            const { accessToken, refreshToken } = response.data;
-            localStorage.setItem("token", accessToken);
-            localStorage.setItem("refreshToken", refreshToken);
 
             setMessage("회원가입 성공!");
             navigate("/login");

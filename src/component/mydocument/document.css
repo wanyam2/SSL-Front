@@ -9,9 +9,9 @@ header p{
     margin: 0 auto;
     font-size: 18px;
     font-weight:bold;
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
+    display: flex;
+    align-self: center;
+    padding-right: 24px;
 }
 
 .docPage{

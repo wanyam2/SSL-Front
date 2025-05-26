@@ -36,16 +36,8 @@
     gap: 24px;
 }
 
-.ocrPage .main_btm button{
-    width: 140px;
-    height: 75px;
-    background-color: #ffffff;
-    border-radius: 10px;
-    border: 1px solid #64748B;
-    color: #64748B;
-}
 
-.ocrPage .main_btm .uploadBtn{
+.ocrPage .main_btm label{
     display: flex;
     flex-direction: column;
     justify-items: center;
@@ -59,7 +51,7 @@
     color: #64748B;
 }
 
-.ocrPage .main_btm .uploadBtn p{
+.ocrPage .main_btm p{
     margin: 0;
     margin-bottom: 10px;
     font-size: 14px;
@@ -72,12 +64,7 @@
     color: #64748B;
 }
 
-.ocrPage .main_btm button p{
-    margin: 0;
-    margin-bottom: 10px;
-    font-size: 14px;
-    color: #64748B;
-}
+
 
 .ocrPage .main_bottom{
     margin-top: 58px;

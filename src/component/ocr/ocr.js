@@ -66,10 +66,18 @@ const Ocr = () => {
                         <span>개인정보는 자동으로 필터링됩니다.</span>
                     </div>
                     <div className="main_btm">
-                        <button onClick={goResult} className="cameraBtn">
+                        {/* 카메라 버튼 */}
+                        <label className="cameraBtn">
                             <IoCameraOutline className="icon" />
                             <p>카메라</p>
-                        </button>
+                            <input
+                                type="file"
+                                accept="image/*"
+                                capture="environment"
+                                onChange={handleUpload}
+                                style={{ display: "none" }}
+                            />
+                        </label>
 
                         {/* 파일 업로드 버튼 */}
                         <label className="uploadBtn">
@@ -83,6 +91,7 @@ const Ocr = () => {
                             />
                         </label>
                     </div>
+
 
                     {loading && <p>업로드 중입니다...</p>}
                     {error && <p style={{ color: "red" }}>{error}</p>}

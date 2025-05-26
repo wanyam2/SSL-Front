@@ -1,4 +1,4 @@
-import React, { useState } from "react";     
+import React, { useState } from "react";
 import { useNavigate, Link } from 'react-router-dom';
 import { GoArrowLeft } from "react-icons/go";
 import SelectLanguage from "../../lib/selectbox/SelectLanguage";

@@ -7,9 +7,7 @@ import logoImg from "../../img/logoimg.jpg";
 import logoText from "../../img/logotext.png";
 
 const Login = () => {
-    const url = "https://port-0-mobicom-sw-contest-2025-umnqdut2blqqevwyb.sel4.cloudtype.app/api/users/login";
     const navigate = useNavigate();
-
     const [formData, setFormData] = useState({
         username: '',
         password: ''
@@ -26,22 +24,48 @@ const Login = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post(url, {
+            const response = await axios.post(
+                "https://port-0-mobicom-sw-contest-2025-umnqdut2blqqevwyb.sel4.cloudtype.app/api/users/login",
+                {
+                    username: formData.username,
+                    password: formData.password
+                },
+                {
+                    headers: {
+                        "Content-Type": "application/json"
+                    }
+                }
+            );
+
+            // 정확하게 꺼냄
+            const memberId = response.data?.memberId;
+            const accessToken = response.data?.jwtToken?.accessToken;
+            const refreshToken = response.data?.jwtToken?.refreshToken;
+
+            if (!memberId || !accessToken) {
+                throw new Error("응답 구조가 예상과 다릅니다.");
+            }
+
+            // 사용자 정보 저장
+            localStorage.setItem("user", JSON.stringify({
                 username: formData.username,
-                password: formData.password,
-            });
-            console.log('로그인 성공:', response.data);
-            localStorage.setItem('token', response.data.token);
-            navigate('/home');
+                memberId,
+            }));
+            localStorage.setItem("token", accessToken);
+            localStorage.setItem("refreshToken", refreshToken);
+
+            navigate("/home");
         } catch (error) {
-            console.error('로그인 실패:', error);
-            setError('로그인 실패. 정보를 확인해주세요.');
+            console.error("로그인 실패:", error);
+            if (error.response) {
+                setError(`서버 응답 오류: ${error.response.status}`);
+            } else {
+                setError("로그인 실패. 네트워크 또는 서버 오류입니다.");
+            }
         }
     };
 
-    const goToTitle = () => {
-        navigate('/');
-    };
+    const goToTitle = () => navigate("/");
 
     return (
         <>
@@ -70,6 +94,7 @@ const Login = () => {
                         placeholder="아이디를 입력하세요"
                         value={formData.username}
                         onChange={handleChange}
+                        required
                     />
 
                     <div className="main_main_pw">
@@ -84,6 +109,7 @@ const Login = () => {
                         placeholder="비밀번호를 입력하세요"
                         value={formData.password}
                         onChange={handleChange}
+                        required
                     />
 
                     <div className="main_main_signUp">

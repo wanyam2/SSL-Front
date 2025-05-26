@@ -70,6 +70,12 @@
     height: 180px;
     gap: 20px;
 }
+.row_inform_box .delicon {
+    margin: 0 5px 0 auto ;
+
+    font-size: 25px;
+    cursor: pointer;
+}
 
 .informPage .row_site_tilte{
     display: flex;

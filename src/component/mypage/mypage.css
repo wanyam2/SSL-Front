@@ -10,7 +10,8 @@
     align-self: flex-start;
     font-size: 20px;
     font-weight: bolder;
-    margin-top: 40px;
+    margin-top: 10px;
+    margin-bottom: 0px;
     margin-left: 20px;
 }
 
@@ -23,15 +24,14 @@
 
 .myPage .pw_link{
     align-self: center;
-    margin-top: 20px;
-    margin-left: 20px;
+    margin-top: 10px;
 }
 
 .myPage .main_bottom{
     display: flex;
     align-self: center;
     flex-direction: row;
-    margin-top: 80px;
+    margin-top: 20px;
     gap: 15px;
 }
 

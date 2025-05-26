@@ -46,7 +46,23 @@ const Result = () => {
                 `https://port-0-mobicom-sw-contest-2025-umnqdut2blqqevwyb.sel4.cloudtype.app/api/contracts/${resultData.contractId}/analyze`
             );
 
-            // 성공 시 분석 결과와 함께 페이지 이동
+            const newLaws = response.data.laws || [];
+            const prevLaws = JSON.parse(localStorage.getItem("allLaws") || "[]");
+
+            // 중복 제거: lawInfoId 기준으로 숫자 변환 후 Map 처리
+            const combined = [...prevLaws, ...newLaws];
+            const uniqueLawsMap = new Map();
+            combined.forEach(law => {
+                const key = Number(law.lawInfoId);
+                if (!uniqueLawsMap.has(key)) {
+                    uniqueLawsMap.set(key, law);
+                }
+            });
+
+            // 저장
+            localStorage.setItem("allLaws", JSON.stringify([...uniqueLawsMap.values()]));
+
+            // OCR summary로 이동
             navigate("/ocr-summary", { state: { analysis: response.data, result: resultData } });
         } catch (err) {
             console.error("법률 정보 분석 실패:", err);
