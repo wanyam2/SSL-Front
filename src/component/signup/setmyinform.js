@@ -26,6 +26,7 @@ const Setmyinform = () => {
     };
 
     const goNext = () => {
+        console.log(formData)
         navigate("/signup", { state: formData });
     };
 

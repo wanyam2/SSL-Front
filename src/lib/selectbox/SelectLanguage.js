@@ -3,8 +3,10 @@ import "./Selectbox.css";
 
 
 const languageOptions = [
-    { value: "ko", label: "한국어" },
-    { value: "en", label: "English" },
+    { value: "korean", label: "한국어" },
+    { value: "english", label: "English" },
+    { value: "vietnam", label: "vietnam" },
+    { value: "zh-cn", label: "china" },
     // 언어 추가…
 ];
 
@@ -12,9 +14,9 @@ export default function SelectLanguage({
     value,
     onChange,
     placeholder = "사용언어를 선택하세요",
-    }) {
+}) {
     return (
-        <select value={value} onChange={onChange}>
+        <select value="english" onChange={onChange}>
             <option value="">{placeholder}</option>
 
             {languageOptions.map(({ value: val, label }) => (
@@ -22,7 +24,7 @@ export default function SelectLanguage({
                     {label}
                 </option>
 
-        ))}
+            ))}
         </select>
     );
 }

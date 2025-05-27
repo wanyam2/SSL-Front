@@ -29,11 +29,14 @@ const Home = () => {
             const user = JSON.parse(rawUser);
             const memberId = user.memberId;
 
+
+
             axios.get(`https://port-0-mobicom-sw-contest-2025-umnqdut2blqqevwyb.sel4.cloudtype.app/api/users/${memberId}`, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
             }).then(res => {
+                    console.log(res.data);
                 setNickname(res.data.nickname || "사용자");
             }).catch(err => {
                 console.error("사용자 정보 불러오기 실패:", err);

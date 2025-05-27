@@ -63,7 +63,9 @@ const Signup = () => {
             });
 
             setMessage("회원가입 성공!");
+            console.log(response.data)
             navigate("/login");
+
         } catch (error) {
             if (error.response) {
                 setMessage(`회원가입 실패: ${error.response.status} - ${error.response.data?.message || "오류 발생"}`);

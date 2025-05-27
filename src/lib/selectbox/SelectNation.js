@@ -13,7 +13,7 @@ export default function SelectNation({
     placeholder = "국적을 선택하세요",
     }) {
     return (
-        <select value={value} onChange={onChange}>
+        <select value="en" onChange={onChange}>
             <option value="">{placeholder}</option>
 
             {nationOptions.map(({ value: val, label }) => (

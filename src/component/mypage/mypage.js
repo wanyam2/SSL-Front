@@ -23,6 +23,7 @@ const Mypage = () => {
     useEffect(() => {
         const user = JSON.parse(localStorage.getItem("user") || "{}");
         const memberId = user.memberId;
+        console.log(memberId)
         const token = localStorage.getItem("token");
 
         if (!memberId || !token) {
@@ -37,11 +38,12 @@ const Mypage = () => {
             }
         }).then(res => {
             const data = res.data;
+            console.log(data)
             setUsername(data.username || "");
             setNickname(data.nickname || "");
             setPhone(data.phone || "");
-            setLang(data.language || "");
-            setNat(data.nationality || "");
+            setLang("en");
+            setNat("english");
             setWorkLocation(data.workLocation || "");
             setExperienceYears(data.experienceYears || 0);
         }).catch(err => {
@@ -77,10 +79,10 @@ const Mypage = () => {
                     <input className="inputBox" value={phone} disabled />
 
                     <label>국적</label>
-                    <SelectNation value={nat} onChange={e => setNat(e.target.value)} />
+                    <SelectNation value="english" />
 
                     <label>사용언어</label>
-                    <SelectLanguage value={lang} onChange={e => setLang(e.target.value)} />
+                    <SelectLanguage value="en" />
 
                     <label>작업 위치</label>
                     <input className="inputBox" value={workLocation} onChange={e => setWorkLocation(e.target.value)} />

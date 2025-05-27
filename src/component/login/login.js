@@ -51,8 +51,11 @@ const Login = () => {
                 username: formData.username,
                 memberId,
             }));
+            console.log(localStorage)
+
             localStorage.setItem("token", accessToken);
             localStorage.setItem("refreshToken", refreshToken);
+
 
             navigate("/home");
         } catch (error) {
