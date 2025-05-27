@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate, useLocation } from "react-router-dom";
 import { GoArrowLeft } from "react-icons/go";
 import { HiArrowTopRightOnSquare } from "react-icons/hi2";
 import axios from "axios";
@@ -7,16 +7,29 @@ import "./eachsummary.css";
 
 const Eachsummary = () => {
     const navigate = useNavigate();
-    const location = useLocation();
-    const lawInfoId = location.state?.lawInfoId;
-    const analysis = location.state?.analysis;
-    const result = location.state?.result;
+    const { state } = useLocation();
+
+    // 1) state 에 lawInfoId 가 없다면 localStorage 에서 꺼내오기
+    const incomingLawInfoId = state?.lawInfoId;
+    const storedLawInfoId = localStorage.getItem("selectedLawInfoId");
+    const lawInfoId = incomingLawInfoId || storedLawInfoId;
+
+    const analysis = state?.analysis;
+    const result = state?.result;
+    const contractId = state?.contractId;
+
+    // 2) 받은 lawInfoId 가 있으면 localStorage에도 저장
+    useEffect(() => {
+        if (incomingLawInfoId) {
+            localStorage.setItem("selectedLawInfoId", incomingLawInfoId);
+        }
+    }, [incomingLawInfoId]);
 
     const [lawDetail, setLawDetail] = useState(null);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
 
-    const cameFromInformation = location.state?.from === "information";
+    const cameFromInformation = state?.from === "information";
 
     const goBack = () => {
         if (cameFromInformation) {
@@ -24,31 +37,35 @@ const Eachsummary = () => {
         } else {
             navigate("/ocr-summary", {
                 state: {
-                    analysis: location.state?.analysis,
-                    result: location.state?.result,
+                    analysis,
+                    result,
+                    contractId
                 }
             });
         }
     };
 
+    // 3) lawInfoId 가 준비되면 상세 API 호출
     useEffect(() => {
         const fetchLawDetail = async () => {
             if (!lawInfoId) {
                 setError("lawInfoId가 전달되지 않았습니다.");
                 return;
             }
-
             setLoading(true);
             setError(null);
 
             try {
-                const response = await axios.get(
+                const { data } = await axios.get(
                     `https://port-0-mobicom-sw-contest-2025-umnqdut2blqqevwyb.sel4.cloudtype.app/api/lawinfo/${lawInfoId}`
                 );
-                setLawDetail(response.data);
+                setLawDetail(data);
             } catch (err) {
                 console.error("법률 정보 상세 조회 실패:", err);
-                setError(`법률 정보 상세 조회 실패: ${err.message} (${err.response?.status || '알 수 없는 오류'})`);
+                setError(
+                    `법률 정보 상세 조회 실패: ${err.message} (${err.response?.status ||
+                    "알 수 없는 오류"})`
+                );
             } finally {
                 setLoading(false);
             }
@@ -76,45 +93,45 @@ const Eachsummary = () => {
                     {!loading && !error && lawDetail && (
                         <>
                             <div className="main_box">
-                                <div className="main_box_title"><p>법률 목적</p></div>
+                                <div className="main_box_title">
+                                    <p>법률명</p>
+                                </div>
                                 <div className="content">
-                                    <span>{lawDetail.purpose || "정보 없음"}</span>
+                                    <span>
+                                        {lawDetail.translatedLawName || lawDetail.lawName || "정보 없음"}
+                                    </span>
                                 </div>
                             </div>
 
                             <div className="main_box">
-                                <div className="main_box_title"><p>주요 조항</p></div>
+                                <div className="main_box_title">
+                                    <p>요약 설명</p>
+                                </div>
                                 <div className="content">
-                                    <span>{lawDetail.mainClause || "정보 없음"}</span>
+                                    <span>
+                                        {lawDetail.translatedSummary || "정보 없음"}
+                                    </span>
                                 </div>
                             </div>
 
                             <div className="main_box">
-                                <div className="main_box_title"><p>요약 설명</p></div>
+                                <div className="main_box_title">
+                                    <p>참조 번호</p>
+                                </div>
                                 <div className="content">
-                                    <span>{lawDetail.translatedSummary || "정보 없음"}</span>
+                                    <span>
+                                        {lawDetail.referenceNumber || "정보 없음"}
+                                    </span>
                                 </div>
                             </div>
-
-                            <div className="main_box">
-                                <div className="main_box_title"><p>참조 번호</p></div>
-                                <div className="content">
-                                    <span>{lawDetail.referenceNumber || "정보 없음"}</span>
-                                </div>
-                            </div>
-                            {/* {law.sourceLink && (
-                                    <p><a href={law.sourceLink} target="_blank" rel="noopener noreferrer" className="lawlink">{law.sourceLink}</a></p>
-                                )} */}
                         </>
                     )}
                 </div>
 
-                {lawDetail?.sourceLink && (
-                    <a href={lawDetail.sourceLink} target="_blank" rel="noopener noreferrer">
-                        <button className="BlueBtn">
-                            국가법령정보센터에서 보기
-                            <HiArrowTopRightOnSquare className="icon" />
-                        </button>
+                {lawDetail?.detailUrl && (
+                    <a href={lawDetail.detailUrl} target="_blank" rel="noopener noreferrer" className="BlueBtn">
+                            <span>국가법령정보센터에서 보기<HiArrowTopRightOnSquare className="icon" /></span>
+                            
                     </a>
                 )}
 

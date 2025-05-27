@@ -1,20 +1,54 @@
-import React from "react";
-import { useNavigate, useLocation } from 'react-router-dom';
+import React, { useEffect, useState } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import { GoArrowLeft, GoInfo } from "react-icons/go";
 import { AiOutlineWarning } from "react-icons/ai";
 import { HiArrowTopRightOnSquare } from "react-icons/hi2";
+import axios from "axios";
 import "./summary.css";
 
 const Summary = () => {
     const navigate = useNavigate();
-    const location = useLocation();
-
-    // POST 응답값에서 직접 꺼냄
-    const analysis = location.state?.analysis;
-    const result = location.state?.result;
+    const { state } = useLocation();
+    const { analysis, result, contractId } = state || {};
+    console.log("▶ Summary useEffect, contractId:", contractId);
 
     const issues = analysis?.issues || [];
     const laws = analysis?.laws || [];
+
+    // lawinfo 조회 상태
+    const [lawInfos, setLawInfos] = useState([]);
+
+    // contractId 가 준비되면 lawinfo GET
+    useEffect(() => {
+
+        if (!contractId) return;
+
+        const fetchLawInfo = async () => {
+            try {
+                const { data } = await axios.get(
+                    `https://port-0-mobicom-sw-contest-2025-umnqdut2blqqevwyb.sel4.cloudtype.app/api/contracts/${contractId}/lawinfo`
+                );
+                console.log("GET /lawinfo 응답:", data);
+                setLawInfos(data);
+            } catch (err) {
+                console.error("법률정보 조회 실패:", err);
+            }
+        };
+
+        fetchLawInfo();
+    }, [contractId]);
+
+
+    // analysis.laws 에 lawInfoId 등을 머지
+    const enrichedLaws = laws.map(law => {
+        const info = lawInfos.find(li => li.referenceNumber === law.referenceNumber);
+        return {
+            ...law,
+            lawInfoId: info?.lawInfoId,
+            detailURL: info?.detailURL
+        };
+    });
+
 
     const goResult = () => navigate("/ocr-result", { state: { result } });
 
@@ -27,12 +61,16 @@ const Summary = () => {
 
             <main className="sumaryPage">
                 <div className="main_top">
-                    <span>계약서 내용 중 한국 노동법 기준으로 주의가 필요한 부분을 안내 해 드립니다.</span>
+                    <span>
+                        계약서 내용 중 한국 노동법 기준으로 주의가 필요한 부분을 안내해 드립니다.
+                    </span>
                 </div>
 
                 <div className="main_main">
-                    {issues.length === 0 && laws.length === 0 && (
-                        <p style={{ textAlign: "center", margin: "30px 0" }}>분석된 정보가 없습니다.</p>
+                    {issues.length === 0 && enrichedLaws.length === 0 && (
+                        <p style={{ textAlign: "center", margin: "30px 0" }}>
+                            분석된 정보가 없습니다.
+                        </p>
                     )}
 
                     {/* 검토사항 */}
@@ -42,7 +80,9 @@ const Summary = () => {
                                 <GoInfo className="icon" />
                                 <p>검토사항</p>
                             </div>
-                            <p className="row_title"><strong>검토 유형: {issue.type}</strong></p>
+                            <p className="row_title">
+                                <strong>검토 유형: {issue.type}</strong>
+                            </p>
                             <div className="content">
                                 <p>
                                     <strong>사유:</strong><br />
@@ -53,41 +93,43 @@ const Summary = () => {
                                     <span>{issue.evidence}</span>
                                 </p>
                             </div>
-                            {/* 필요 시 자세히 보기 버튼 구현 가능 */}
                         </div>
                     ))}
 
                     {/* 관련법률 정보 */}
-                    {laws.map((law, idx) => (
+                    {enrichedLaws.map((law, idx) => (
                         <div className="main_box" key={`law-${idx}`}>
                             <div className="main_box_title">
                                 <GoInfo className="icon" />
                                 <p>관련법률 정보</p>
                             </div>
-                            <p className="row_title"><strong>법률명: {law.lawName}</strong></p>
+                            <p className="row_title">
+                                <strong>법률명: {law.lawName}</strong>
+                            </p>
                             <div className="content">
-                                {law.translatedSummary && 
+                                {law.translatedSummary && (
                                     <p>
                                         <strong>요약:</strong><br />
                                         <span>{law.translatedSummary}</span>
                                     </p>
-                                }
-
+                                )}
                                 {law.referenceNumber && (
                                     <p className="content_ex">
                                         <strong>참조 번호:</strong> <span>{law.referenceNumber}</span>
                                     </p>
                                 )}
-                                
                             </div>
                             <button
                                 className="detail_btn"
+                                disabled={!law.lawInfoId}
                                 onClick={() =>
                                     navigate("/eachsummary", {
                                         state: {
                                             lawInfoId: law.lawInfoId,
+                                            detailURL: law.detailURL,
                                             analysis,
-                                            result
+                                            result,
+                                            contractId
                                         }
                                     })
                                 }

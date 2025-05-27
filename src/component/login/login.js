@@ -56,8 +56,8 @@ const Login = () => {
             localStorage.setItem("token", accessToken);
             localStorage.setItem("refreshToken", refreshToken);
 
-
-            navigate("/home");
+                
+            navigate("/home",{state: { memberId }});
         } catch (error) {
             console.error("로그인 실패:", error);
             if (error.response) {

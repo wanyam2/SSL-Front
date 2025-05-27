@@ -13,7 +13,6 @@ const Ocr = () => {
     const [error, setError] = useState(null);
 
     const goHome = () => navigate("/home");
-    const goResult = () => navigate("/ocr-result");
 
     const handleUpload = async (e) => {
         const file = e.target.files[0];
@@ -38,8 +37,10 @@ const Ocr = () => {
                     }
                 }
             );
+            console.log(response.data)
             // 성공 시 결과 페이지로 이동하면서 데이터 전달
             navigate("/ocr-result", { state: { result: response.data } });
+            
         } catch (err) {
             console.error("업로드 실패:", err);
             if (err.response) {

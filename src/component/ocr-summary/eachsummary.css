@@ -63,3 +63,10 @@
 .eachsummary .add_text p{
     margin: 0 0 5px 0;
 }
+
+.eachsummary .BlueBtn {
+  display: flex;
+  align-items: center;      
+  justify-content: center;  
+
+}

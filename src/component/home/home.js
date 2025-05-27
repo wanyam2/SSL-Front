@@ -10,16 +10,19 @@ import "./home.css";
 const Home = () => {
     const navigate = useNavigate();
     const [nickname, setNickname] = useState("사용자");
+    const user = JSON.parse(localStorage.getItem("user") || "{}");
+    const memberId = user.memberId;
+    console.log(memberId)
 
     const goMypage = () => navigate("/mypage");
-    const goMydocument = () => navigate("/mydocument");
-    const goOcr = () => navigate("/ocr");
+    const goMydocument = () => navigate("/mydocument", { memberId });
+    const goOcr = () => navigate("/ocr", { memberId });
     const goInformation = () => navigate("/information");
 
     useEffect(() => {
         const rawUser = localStorage.getItem("user");
         const token = localStorage.getItem("token");
-        
+
         if (!rawUser || !token) {
             console.error("로그인 정보 없음");
             return;
@@ -36,7 +39,7 @@ const Home = () => {
                     Authorization: `Bearer ${token}`
                 }
             }).then(res => {
-                    console.log(res.data);
+                console.log(res.data);
                 setNickname(res.data.nickname || "사용자");
             }).catch(err => {
                 console.error("사용자 정보 불러오기 실패:", err);
