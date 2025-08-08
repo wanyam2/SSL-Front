@@ -1,0 +1,102 @@
+.container {
+    padding: 24px 16px 80px;
+    font-family: sans-serif;
+    background-color: #f5f7fc;
+    min-height: 100vh;
+}
+
+.greeting {
+    margin-bottom: 20px;
+}
+
+.subText {
+    font-size: 14px;
+    color: #999;
+    margin-bottom: 4px;
+}
+
+.title {
+    font-size: 20px;
+    font-weight: 700;
+    color: #000;
+}
+
+.mainCard {
+    background: linear-gradient(to right, #3d87f5, #4a90e2);
+    border-radius: 16px;
+    color: white;
+    padding: 20px;
+    margin: 20px 0;
+    font-size: 18px;
+    font-weight: bold;
+    position: relative;
+    height: 130px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.scanIcon {
+    font-size: 32px;
+}
+
+.subCards {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+.card {
+    background-color: #fff;
+    border-radius: 16px;
+    padding: 16px;
+    flex: 1;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    position: relative;
+}
+
+.cardTitle {
+    font-size: 12px;
+    color: #999;
+    margin-bottom: 4px;
+    display: block;
+}
+
+.cardDesc {
+    font-size: 16px;
+    font-weight: 600;
+    margin: 0;
+    color: #333;
+}
+
+.cardIcon {
+    position: absolute;
+    bottom: 16px;
+    right: 16px;
+    color: #d0d0d0;
+}
+
+.tabBar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 60px;
+    background-color: #fff;
+    display: flex;
+    border-top: 1px solid #ddd;
+}
+
+.tabItem,
+.tabItemActive {
+    flex: 1;
+    text-align: center;
+    padding-top: 6px;
+    font-size: 12px;
+    color: #888;
+}
+
+.tabItemActive {
+    color: #3d87f5;
+    font-weight: 600;
+}
