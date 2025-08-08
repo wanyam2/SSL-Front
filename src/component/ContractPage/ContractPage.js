@@ -3,8 +3,17 @@ import styles from './ContractPage.module.css';
 import { FaRegFileAlt, FaUser } from 'react-icons/fa';
 import { MdCheckCircleOutline } from 'react-icons/md';
 import { BsQuestionCircle } from 'react-icons/bs';
+import { useNavigate } from 'react-router-dom';
 
 export default function ContractPage() {
+    const navigate = useNavigate();
+
+    const handleGoToOCR = () => {
+        navigate('/ocr');
+    };
+
+
+
     return (
         <div className={styles.container}>
             <div className={styles.greeting}>
@@ -12,7 +21,12 @@ export default function ContractPage() {
                 <h2 className={styles.title}>첫 계약을 생성해봐요!</h2>
             </div>
 
-            <div className={styles.mainCard}>
+            <div
+                className={styles.mainCard}
+                onClick={handleGoToOCR}
+                role="button"
+                tabIndex={0}
+            >
                 <span>계약서<br />가져오기</span>
                 <div className={styles.scanIcon}></div>
             </div>

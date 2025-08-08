@@ -81,3 +81,127 @@
     margin: 0px;
     margin-bottom: 5px;
 }
+
+/* 상단 헤더 */
+.ocrHeader {
+    position: sticky;
+    top: 0;
+    z-index: 5;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 12px;
+    background: transparent;
+    color: #fff;
+}
+.backBtn { font-size: 22px; cursor: pointer; }
+
+/* 페이지 컨테이너 */
+.ocrPage {
+    min-height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    background: #0c0c0c;
+    color: #fff;
+}
+
+/* 카메라 프리뷰 영역 */
+.previewWrap {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 9/16;
+    max-height: 70vh;
+    overflow: hidden;
+    border-radius: 16px;
+    margin: 8px auto 0;
+}
+.video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* 어두운 마스크 + 중앙 가이드 */
+.mask {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    /* 중앙 만 투명한 마스크 (box-shadow trick) */
+    --gw: 76%;  /* 가이드 폭 비율 */
+    --gh: 52%;  /* 가이드 높이 비율 */
+}
+.guideBox {
+    position: absolute;
+    width: var(--gw);
+    height: var(--gh);
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow:
+            0 0 0 9999px rgba(0,0,0,0.45); /* 바깥 어둡게 */
+    border-radius: 16px;
+}
+
+/* 모서리 브라켓 */
+.corner {
+    position: absolute;
+    width: 28px;
+    height: 28px;
+    border: 3px solid rgba(255,255,255,0.9);
+}
+.corner.tl { left: -3px; top: -3px; border-right: 0; border-bottom: 0; border-radius: 12px 0 0 0; }
+.corner.tr { right: -3px; top: -3px; border-left: 0; border-bottom: 0; border-radius: 0 12px 0 0; }
+.corner.bl { left: -3px; bottom: -3px; border-right: 0; border-top: 0; border-radius: 0 0 0 12px; }
+.corner.br { right: -3px; bottom: -3px; border-left: 0; border-top: 0; border-radius: 0 0 12px 0; }
+
+.loadingText {
+    position: absolute;
+    left: 50%; top: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(0,0,0,0.5);
+    padding: 8px 12px;
+    border-radius: 8px;
+    font-size: 14px;
+}
+
+/* 안내문구 */
+.notice {
+    text-align: center;
+    font-size: 12px;
+    line-height: 1.5;
+    color: rgba(255,255,255,0.85);
+    margin: 12px 0 8px;
+}
+
+/* 하단 버튼영역 */
+.main_btm {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    align-items: center;
+    margin: 8px 12px 0;
+}
+.uploadBtn, .scanBtn {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    border-radius: 999px;
+    padding: 10px 18px;
+    background: #202124;
+    color: #fff;
+    cursor: pointer;
+}
+.uploadBtn .icon, .scanBtn .icon { font-size: 18px; margin-bottom: 4px; }
+.scanBtn {
+    background: #ffffff;
+    color: #0b0c0f;
+    padding: 12px 24px;
+    font-weight: 700;
+}
+.scanBtn:disabled { opacity: 0.6; cursor: not-allowed; }
+
+.progressText { text-align: center; margin-top: 8px; font-size: 14px; }
+.errorText { color: #ff6b6b; text-align: center; margin-top: 6px; }
