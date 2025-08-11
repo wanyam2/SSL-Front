@@ -1,5 +1,5 @@
 .container {
-    padding: 24px 16px 80px;
+    padding: 40px 16px 80px;
     font-family: sans-serif;
     background-color: #f5f7fc;
     min-height: 100vh;
@@ -10,31 +10,88 @@
 }
 
 .subText {
-    font-size: 14px;
+    font-size: 18px;
     color: #999;
     margin-bottom: 4px;
 }
 
 .title {
-    font-size: 20px;
+    font-size: 32px;
     font-weight: 700;
     color: #000;
 }
 
 .mainCard {
-    background: linear-gradient(to right, #3d87f5, #4a90e2);
-    border-radius: 16px;
-    color: white;
+    position: relative;
+    overflow: hidden;
+    height: 130px;
     padding: 20px;
     margin: 20px 0;
-    font-size: 18px;
-    font-weight: bold;
-    position: relative;
-    height: 130px;
+    border-radius: 20px;
+    color: #fff;
+    font-weight: 700;
     display: flex;
-    justify-content: space-between;
     align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+
+    background: linear-gradient(135deg, #3d87f5 0%, #4a90e2 100%);
+    box-shadow: 0 10px 24px rgba(61,135,245,0.25), 0 6px 12px rgba(0,0,0,0.08);
+    transition: transform .08s ease, box-shadow .12s ease;
 }
+
+.mainCard:active {
+    transform: translateY(1px);
+    box-shadow: 0 8px 18px rgba(61,135,245,0.22), 0 5px 10px rgba(0,0,0,0.08);
+}
+
+.mainCardTitle {
+    font-size: 18px;
+    line-height: 1.3;
+    z-index: 2;
+
+}
+
+.scanIcon {
+    position: absolute;
+    right: 16px;
+    bottom: 14px;
+    z-index: 2;
+    padding: 8px;
+    border-radius: 12px;
+    background: rgba(255,255,255,0.15);
+    backdrop-filter: blur(2px);
+}
+
+.mainCard::before {
+    content: "";
+    position: absolute;
+    right: -32%;
+    top: -11%;
+    width: 70%;
+    height: 140%;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.20), rgba(255, 255, 255, 0.08));
+    transform: rotate(43deg);
+    z-index: 1;
+}
+
+.mainCard::after {
+    content: "";
+    position: absolute;
+    right: 10%;
+    top: 40%;
+    width: 36%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.22), rgba(255, 255, 255, 0.10));
+    transform: rotate(43deg);
+    z-index: 1;
+}
+
+.mainCard:focus-visible {
+    outline: 3px solid rgba(255,255,255,0.7);
+    outline-offset: 2px;
+}
+
 
 .scanIcon {
     font-size: 32px;
@@ -48,18 +105,58 @@
 
 .card {
     background-color: #fff;
-    border-radius: 16px;
+    border-radius: 18px;
     padding: 16px;
+    margin-top: 30px;
     flex: 1;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
     position: relative;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.04);
+    border: 1px solid rgba(0,0,0,0.03);
+    overflow: hidden;
+    isolation: isolate;
 }
+
+.cardQMark {
+    position: absolute;
+    right: 10px;
+    bottom: -6px;
+    font-size: 88px;
+    line-height: 1;
+    font-weight: 700;
+    color: rgba(61,135,245,0.18);
+    user-select: none;
+    pointer-events: none;
+    z-index: 0;
+}
+
+
+.cardBadge {
+    position: absolute;
+    right: 12px;
+    bottom: 12px;
+    width: 60px;
+    height: 60px;
+    border-radius: 16px;
+    background: #DFF2E1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 0;
+}
+
+
+.cardBadgeIcon {
+    color: #fff;
+    filter: drop-shadow(0 1px 1px rgba(0,0,0,0.06));
+}
+
 
 .cardTitle {
     font-size: 12px;
     color: #999;
-    margin-bottom: 4px;
+    margin-bottom: 6px;
     display: block;
+    z-index: 1;
 }
 
 .cardDesc {
@@ -67,13 +164,7 @@
     font-weight: 600;
     margin: 0;
     color: #333;
-}
-
-.cardIcon {
-    position: absolute;
-    bottom: 16px;
-    right: 16px;
-    color: #d0d0d0;
+    z-index: 1;
 }
 
 .tabBar {
@@ -81,7 +172,7 @@
     bottom: 0;
     left: 0;
     right: 0;
-    height: 60px;
+    height: 90px;
     background-color: #fff;
     display: flex;
     border-top: 1px solid #ddd;
@@ -91,9 +182,14 @@
 .tabItemActive {
     flex: 1;
     text-align: center;
-    padding-top: 6px;
-    font-size: 12px;
+    padding-top: 8px;
+    font-size: 15px;
     color: #888;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
 }
 
 .tabItemActive {
