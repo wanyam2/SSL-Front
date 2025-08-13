@@ -19,7 +19,6 @@
 }
 
 .contractBox {
-    background: linear-gradient(to right, #3d87f5, #4a90e2);
     border-radius: 16px;
     color: white;
     padding: 16px;
@@ -27,15 +26,31 @@
     position: relative;
 }
 
+.safeCard {
+    background: linear-gradient(180deg, #4a7dff 0%, #2f66ff 100%);
+}
+.warningCard {
+    background: linear-gradient(180deg, #ff9aa4 0%, #ff6e7a 100%);
+}
+
 .alertBadge {
     position: absolute;
     top: 12px;
     right: 16px;
-    background: #fff0e0;
-    color: #ff6600;
     font-size: 12px;
-    padding: 4px 8px;
-    border-radius: 12px;
+    padding: 6px 10px;
+    border-radius: 999px;
+    font-weight: 700;
+    background: rgba(255,255,255,0.95);
+    color: #111;
+}
+.alertBadge.safe {
+    background: rgba(255,255,255,0.95);
+    color: #0b3cff;
+}
+.alertBadge.warning {
+    background: rgba(255,255,255,0.95);
+    color: #c01228;
 }
 
 .tabMenu {
@@ -74,6 +89,7 @@
     padding: 16px;
     margin-bottom: 12px;
     box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    position: relative;
 }
 
 .itemHeader {
@@ -84,28 +100,50 @@
 }
 
 .statusMark {
-    font-size: 18px;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    font-size: 12px;
+    font-weight: 900;
+}
+
+.safe .statusMark {
+    background: #2f66ff;
+    color: #fff;
+}
+.info .statusMark {
+    background: #e8eefc;
+    color: #3b5bcc;
+}
+.warning .statusMark,
+.danger .statusMark {
+    background: #ffe6e9;
+    color: #b4232c;
 }
 
 .itemContent {
     font-size: 14px;
     margin-bottom: 6px;
+    color: #475569;
 }
 
 .itemNote {
     font-size: 12px;
-    color: #666;
+    padding: 8px 10px;
+    border-radius: 8px;
 }
-
-/* 상태별 강조 */
-.info .statusMark {
-    color: #007aff;
+.safe .itemNote {
+    background: #e6efff;
+    color: #2049b0;
 }
-
-.warning .statusMark {
-    color: #ff9500;
+.info .itemNote {
+    background: #f3f5f9;
+    color: #4b5563;
 }
-
-.danger .statusMark {
-    color: #ff3b30;
+.warning .itemNote,
+.danger .itemNote {
+    background: #ffe6e9;
+    color: #b4232c;
 }
