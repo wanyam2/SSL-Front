@@ -13,6 +13,9 @@ export default function ContractPage() {
         navigate('/ocr');
     };
 
+    const handleGoToChecklist = () => {
+        navigate('/ContractResultPage');
+    };
 
 
     return (
@@ -39,7 +42,12 @@ export default function ContractPage() {
                     <span className={styles.cardQMark}>?</span>
                 </div>
 
-                <div className={`${styles.card} ${styles.cardChecklist}`}>
+                <div
+                    className={`${styles.card} ${styles.cardChecklist}`}
+                    onClick={handleGoToChecklist}
+                    role="button"
+                    tabIndex={0}
+                >
                     <span className={styles.cardTitle}>체크리스트</span>
                     <p className={styles.cardDesc}><strong>8개</strong><br />조회하기</p>
                     <div className={styles.cardBadge}>

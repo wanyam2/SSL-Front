@@ -1,8 +1,7 @@
-import React, { useEffect, useRef, useState } from "react";
-import { useNavigate } from 'react-router-dom';
-import { GoArrowLeft } from "react-icons/go";
-import { IoCameraOutline } from "react-icons/io5";
-import { FiUpload } from "react-icons/fi";
+import React, {useEffect, useRef, useState} from "react";
+import {useNavigate} from 'react-router-dom';
+import {IoClose, IoCameraOutline} from "react-icons/io5";
+import {FiUpload} from "react-icons/fi";
 import BottomNav from "../../lib/nav/BottomNav";
 import axios from "axios";
 import "./ocr.css";
@@ -20,32 +19,24 @@ const Ocr = () => {
 
     const handleUpload = async (e) => {
         const file = e.target.files[0];
-        if (!file) {
-            setError("파일을 선택해주세요.");
-            return;
-        }
+        if (!file) return setError("파일을 선택해주세요.");
 
         const formData = new FormData();
         formData.append("file", file);
 
         setLoading(true);
         setError(null);
-
         try {
             const response = await axios.post(
                 "https://port-0-mobicom-sw-contest-2025-umnqdut2blqqevwyb.sel4.cloudtype.app/api/contract/1/upload-and-translate",
                 formData,
-                { headers: { "Content-Type": "multipart/form-data" } }
+                {headers: {"Content-Type": "multipart/form-data"}}
             );
-            console.log(response.data);
-            navigate("/ContractResultPage", { state: { result: response.data } });
+            navigate("/ContractResultPage", {state: {result: response.data}});
         } catch (err) {
             console.error("업로드 실패:", err);
-            if (err.response) {
-                setError(`업로드 실패 (${err.response.status}): ${JSON.stringify(err.response.data)}`);
-            } else {
-                setError(`업로드 실패: ${err.message}`);
-            }
+            setError(err.response ? `업로드 실패 (${err.response.status}): ${JSON.stringify(err.response.data)}`
+                : `업로드 실패: ${err.message}`);
         } finally {
             setLoading(false);
         }
@@ -56,7 +47,7 @@ const Ocr = () => {
         (async () => {
             try {
                 const stream = await navigator.mediaDevices.getUserMedia({
-                    video: { facingMode: { ideal: "environment" }, width: { ideal: 1280 }, height: { ideal: 720 } },
+                    video: {facingMode: {ideal: "environment"}, width: {ideal: 1280}, height: {ideal: 720}},
                     audio: false,
                 });
                 if (canceled) return;
@@ -71,7 +62,6 @@ const Ocr = () => {
                 setError("카메라 권한을 허용해 주세요. (HTTPS 필요)");
             }
         })();
-
         return () => {
             canceled = true;
             if (streamRef.current) {
@@ -90,7 +80,6 @@ const Ocr = () => {
             const video = videoRef.current;
             const canvas = document.createElement("canvas");
 
-            // 중앙 가이드 박스 비율(이미지와 비슷하게)
             const guideW = Math.floor(video.videoWidth * 0.76);
             const guideH = Math.floor(video.videoHeight * 0.52);
             const guideX = Math.floor((video.videoWidth - guideW) / 2);
@@ -107,15 +96,14 @@ const Ocr = () => {
             if (!blob) throw new Error("이미지 캡처 실패");
 
             const formData = new FormData();
-            formData.append("file", new File([blob], "scan.jpg", { type: "image/jpeg" }));
+            formData.append("file", new File([blob], "scan.jpg", {type: "image/jpeg"}));
 
             const response = await axios.post(
                 "https://port-0-mobicom-sw-contest-2025-umnqdut2blqqevwyb.sel4.cloudtype.app/api/contract/1/upload-and-translate",
                 formData,
-                { headers: { "Content-Type": "multipart/form-data" } }
+                {headers: {"Content-Type": "multipart/form-data"}}
             );
-            console.log(response.data);
-            navigate("/ocr-result", { state: { result: response.data } });
+            navigate("/ContractResultPage", {state: {result: response.data}});
         } catch (err) {
             console.error(err);
             setError(err.message || "스캔 실패");
@@ -126,55 +114,54 @@ const Ocr = () => {
 
     return (
         <>
-            <header className="ocrHeader">
-                <GoArrowLeft className="backBtn" onClick={goHome} />
-                <p>근로계약서 스캔</p>
-                <span />
-            </header>
-
             <main className="ocrPage">
                 <div className="previewWrap">
-                    <video ref={videoRef} className="video" playsInline muted autoPlay />
+                    <video ref={videoRef} className="video" playsInline muted autoPlay/>
+
+                    <div className="overlayHeader">
+                        <IoClose className="backBtn" onClick={goHome}/>
+                        <p className="overlayTitle">계약서 스캔</p>
+                    </div>
+
+
                     <div className="mask">
                         <div className="guideBox">
-                            <span className="corner tl" />
-                            <span className="corner tr" />
-                            <span className="corner bl" />
-                            <span className="corner br" />
+                            <span className="corner tl"/>
+                            <span className="corner tr"/>
+                            <span className="corner bl"/>
+                            <span className="corner br"/>
                         </div>
                     </div>
-                    {!cameraReady && <div className="loadingText">카메라를 여는 중…</div>}
-                </div>
 
-                <div className="notice">
-                    촬영된 문서는 개인정보 보호를 위해 자동으로 필터링 됩니다.<br />
-                    번역 및 법률 정보 제공 목적으로만 사용됩니다.
+                    {!cameraReady && <div className="loadingText">카메라를 여는 중…</div>}
+
+                    <div className="overlayNotice">
+                        촬영된 문서는 개인정보 보호를 위해<br/>
+                        자동으로 필터링 됩니다.<br/>
+                        번역 및 법률 정보 제공 목적으로만 사용됩니다.
+                    </div>
                 </div>
 
                 <div className="main_btm">
                     <label className="uploadBtn">
+                        <span className="btnText">업로드</span>
                         <FiUpload className="icon" />
-                        <p>업로드</p>
-                        <input
-                            type="file"
-                            accept="image/*"
-                            onChange={handleUpload}
-                            style={{ display: "none" }}
-                        />
+                        <input type="file" accept="image/*" onChange={handleUpload} style={{ display: "none" }} />
                     </label>
 
                     <button className="scanBtn" onClick={handleScan} disabled={loading || !cameraReady}>
+                        <span className="btnText">스캔하기</span>
                         <IoCameraOutline className="icon" />
-                        <p>스캔하기</p>
                     </button>
                 </div>
+
 
                 {loading && <p className="progressText">업로드 중입니다...</p>}
                 {error && <p className="errorText">{error}</p>}
             </main>
 
             <footer>
-                <BottomNav />
+                <BottomNav/>
             </footer>
         </>
     );

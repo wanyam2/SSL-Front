@@ -12,7 +12,7 @@
 .subText {
     font-size: 18px;
     color: #999;
-    margin-bottom: 4px;
+    margin-top: 70px;
 }
 
 .title {
@@ -24,7 +24,7 @@
 .mainCard {
     position: relative;
     overflow: hidden;
-    height: 130px;
+    height: 194px;
     padding: 20px;
     margin: 20px 0;
     border-radius: 20px;
@@ -66,24 +66,24 @@
 .mainCard::before {
     content: "";
     position: absolute;
-    right: -32%;
-    top: -11%;
+    right: -29%;
+    top: 23%;
     width: 70%;
     height: 140%;
     background: linear-gradient(135deg, rgba(255, 255, 255, 0.20), rgba(255, 255, 255, 0.08));
-    transform: rotate(43deg);
+    transform: rotate(66deg);
     z-index: 1;
 }
 
 .mainCard::after {
     content: "";
     position: absolute;
-    right: 10%;
-    top: 40%;
+    right: 5%;
+    top: 33%;
     width: 36%;
     height: 100%;
     background: linear-gradient(135deg, rgba(255, 255, 255, 0.22), rgba(255, 255, 255, 0.10));
-    transform: rotate(43deg);
+    transform: rotate(58deg);
     z-index: 1;
 }
 
@@ -114,13 +114,14 @@
     border: 1px solid rgba(0,0,0,0.03);
     overflow: hidden;
     isolation: isolate;
+    height: 148px;
 }
 
 .cardQMark {
     position: absolute;
-    right: 10px;
-    bottom: -6px;
-    font-size: 88px;
+    right: 5px;
+    bottom: -35px;
+    font-size: 130px;
     line-height: 1;
     font-weight: 700;
     color: rgba(61,135,245,0.18);
@@ -132,10 +133,10 @@
 
 .cardBadge {
     position: absolute;
-    right: 12px;
-    bottom: 12px;
-    width: 60px;
-    height: 60px;
+    right: -5px;
+    bottom: -10px;
+    width: 100px;
+    height: 100px;
     border-radius: 16px;
     background: #DFF2E1;
     display: flex;
@@ -172,7 +173,7 @@
     bottom: 0;
     left: 0;
     right: 0;
-    height: 90px;
+    height: 70px;
     background-color: #fff;
     display: flex;
     border-top: 1px solid #ddd;
