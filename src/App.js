@@ -6,6 +6,7 @@ import ContractPage from "./component/ContractPage/ContractPage"
 // import ContractResult from "./component/ContractResult/ContractResult";
 import Home from "./component/home/home"
 import ChecklistPage from "./component/ChecklistPage/ChecklistPage"
+import SignupPage from "./component/ContractPage/SignUp"
 
 function App() {
     return (
@@ -17,6 +18,7 @@ function App() {
                 {/* <Route path="/ContractResultPage" element={<ContractResult/>}/> */}
                 <Route path="/employment" element={<Employment/>}/>
                 <Route path="/" element={<Home/>}/>
+                <Route path="/SignupPage" element={<SignupPage/>}/>
             </Routes>
         </BrowserRouter>
     );

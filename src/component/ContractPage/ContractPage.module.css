@@ -287,7 +287,7 @@ body {
 }
 
 .progressBarForeground {
-    stroke: #4caf50; 
+    stroke: #4caf50;
     fill: transparent;
     stroke-width: 4;
     stroke-linecap: round;
