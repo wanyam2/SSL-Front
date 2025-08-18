@@ -1,50 +1,119 @@
-// ContractResult.jsx
-import React, { useMemo } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import axios from "axios";
 import styles from "./ContractResult.module.css";
 
-const MOCK_RESULT = {
-    contractType: "근로계약서",
-    contractDate: "2025.07.30",
-    company: "주식회사 로우커피",
-    checklist: [
-        { title: "수습기간", content: "수습기간 3개월 / 수습 중 해고 가능", note: "수습기간 중에는 사용자가 쉽게 해고할 수 있으며, 임금이 삭감될 수 있는 위험이 있어 주의가 필요합니다.", status: "warning" },
-        { title: "퇴직금 조항", content: "퇴직금 관련 조항이 명시되어 있지 않음", note: "계약서에 명시되어 있지 않아 추후 분쟁 가능성이 있습니다.", status: "danger" },
-        { title: "유급휴가", content: "연차휴가 명시 O / 휴가 일수 기준 불명확", note: "실제 사용 가능한 일수 조건이 명확하지 않아 확인이 필요합니다.", status: "info" },
-        { title: "근무시간", content: "주 44시간 / 야근 여부 언급 없음", note: "법정근로시간(주 40시간)을 초과함. 초과근무 수당이 명시되지 않았습니다.", status: "warning" },
-        { title: "임금 조건", content: "월 200만 원 / 수당 별도 언급 없음", note: "초과·연장·야간 수당이 구체적으로 언급되지 않았습니다.", status: "info" },
-        { title: "계약 기간", content: "6개월 계약 / 자동 연장 여부 없음", note: "계약 기간이 종료되면 근로계약이 자동 종료될 수 있어 주의가 필요합니다.", status: "info" },
-        { title: "산재보험", content: "산재보험 가입 명시", note: "안전하게 근무할 수 있는 환경이 보장됩니다.", status: "safe" },
-        { title: "복리후생", content: "식대 제공 / 교통비 지원", note: "추가 복리후생 제공으로 근로자 만족도가 높을 수 있습니다.", status: "safe" }
-    ]
+import { API_BASE } from "../../config/apiBase";
+
+const normalizeStatus = (s) => {
+    const v = String(s || "").toLowerCase();
+    if (["safe"].includes(v)) return "safe";
+    if (["warning", "danger"].includes(v)) return "warning";
+    if (["info"].includes(v)) return "info";
+    return "info";
 };
 
-const normalizeStatus = (s) => (s === "danger" ? "warning" : s);
-
-const getOverall = (list) => {
-    const counts = list.reduce((acc, it) => {
-        const st = normalizeStatus(it.status);
-        acc[st] = (acc[st] || 0) + 1;
-        return acc;
-    }, {});
-    const safe = counts.safe || 0;
-    const notSafe = (counts.info || 0) + (counts.warning || 0);
-    return safe > notSafe ? "safe" : "warning";
-};
+const computeOverall = (issuesCount) => (issuesCount > 0 ? "warning" : "safe");
 
 export default function ContractResult() {
     const { state } = useLocation();
     const navigate = useNavigate();
+    const [loading, setLoading]   = useState(!state?.analysis);
+    const [error, setError]       = useState(null);
+    const [analysis, setAnalysis] = useState(state?.analysis || null);
+    const contractId              = state?.contractId;
 
-    const data = state?.result || MOCK_RESULT;
-    const checklist = (data.checklist || []).map((it) => ({ ...it, status: normalizeStatus(it.status) }));
-    const overall = data.overall || getOverall(checklist);
+    useEffect(() => {
+        let canceled = false;
 
-    const meta = useMemo(() => ({
-        type: data.contractType || "근로계약서",
-        date: data.contractDate || "YYYY.MM.DD",
-        company: data.company || "회사명 인식 중"
-    }), [data]);
+        const fetchAnalysis = async () => {
+            if (!contractId || state?.analysis) return;
+            setLoading(true);
+            setError(null);
+            try {
+                const { data } = await axios.post(`${API_BASE}/api/contracts/${contractId}/analyze`);
+                if (canceled) return;
+                setAnalysis(data);
+            } catch (e) {
+                if (!canceled) {
+                    setError(
+                        e?.response
+                            ? `분석 실패 (${e.response.status}): ${JSON.stringify(e.response.data)}`
+                            : e?.message || "분석 실패"
+                    );
+                }
+            } finally {
+                if (!canceled) setLoading(false);
+            }
+        };
+
+        fetchAnalysis();
+        return () => { canceled = true; };
+    }, [contractId, state?.analysis]);
+
+    const checklist = useMemo(() => {
+        if (!analysis) return [];
+        const list = [];
+
+        if (Array.isArray(analysis.issues)) {
+            analysis.issues.forEach((it, idx) => {
+                list.push({
+                    title: it.type || `이슈 ${idx + 1}`,
+                    content: it.reason || "사유 미기재",
+                    note: it.evidence || "",
+                    status: "warning",
+                });
+            });
+        }
+
+        if (Array.isArray(analysis.laws)) {
+            analysis.laws.forEach((law, idx) => {
+                list.push({
+                    title: law.lawName || `관련 법률 ${idx + 1}`,
+                    content: law.referenceNumber ? `법령 번호: ${law.referenceNumber}` : (law.sourceLink || ""),
+                    note: law.sourceLink || "",
+                    status: "info",
+                });
+            });
+        }
+
+        if ((analysis.issues?.length || 0) === 0) {
+            list.unshift({
+                title: "특이사항 없음",
+                content: "검출된 위험 항목이 없습니다.",
+                note: "계약서 주요 리스크가 발견되지 않았습니다.",
+                status: "safe",
+            });
+        }
+
+        return list;
+    }, [analysis]);
+
+    const overall = computeOverall(analysis?.issues?.length || 0);
+
+    if (loading) {
+        return (
+            <div className={styles.container}>
+                <div className={styles.header}>
+                    <button className={styles.backBtn} onClick={() => navigate(-1)}>←</button>
+                    <h2>계약서 결과</h2>
+                </div>
+                <p>불러오는 중…</p>
+            </div>
+        );
+    }
+
+    if (error || !analysis) {
+        return (
+            <div className={styles.container}>
+                <div className={styles.header}>
+                    <button className={styles.backBtn} onClick={() => navigate(-1)}>←</button>
+                    <h2>계약서 결과</h2>
+                </div>
+                <p className={styles.errorText}>{error || "데이터가 없습니다."}</p>
+            </div>
+        );
+    }
 
     return (
         <div className={styles.container}>
@@ -54,10 +123,10 @@ export default function ContractResult() {
             </div>
 
             <div className={`${styles.contractBox} ${overall === "safe" ? styles.safeCard : styles.warningCard}`}>
-                <div>
-                    <span>{meta.type}</span><br />
-                    <span>{meta.contractDate || meta.date}</span>
-                    <h3 className={styles.company}>{meta.company}</h3>
+                <div className={styles.contractMeta}>
+                    <span className={styles.contractType}>근로계약서</span>
+                    <span className={styles.contractDate}>계약 ID: {analysis.contractId}</span>
+                    <h3 className={styles.company}>회사명 인식 정보는 추후 연동</h3>
                 </div>
                 <div className={`${styles.alertBadge} ${overall === "safe" ? "safe" : "warning"}`}>
                     {overall === "safe" ? "✅ 안심" : "⚠️ 주의"}
@@ -70,19 +139,25 @@ export default function ContractResult() {
 
             <div className={styles.checklist}>
                 {checklist.map((item, idx) => (
-                    <div key={idx} className={`${styles.item} ${styles[item.status]}`}>
+                    <div key={idx} className={`${styles.item} ${styles[normalizeStatus(item.status)]}`}>
                         <div className={styles.itemHeader}>
                             <strong>{item.title}</strong>
                             <span className={styles.statusMark}>
-                {item.status === "safe" && "✔"}
-                                {item.status === "info" && "•"}
-                                {item.status === "warning" && "!"}
+                {normalizeStatus(item.status) === "safe" && "✔"}
+                                {normalizeStatus(item.status) === "info" && "•"}
+                                {normalizeStatus(item.status) === "warning" && "!"}
               </span>
                         </div>
                         <p className={styles.itemContent}>{item.content}</p>
-                        <p className={styles.itemNote}>{item.note}</p>
+                        <p className={styles.itemNote}>
+                            {item.note}
+                            {item.note?.startsWith("http") && (
+                                <a href={item.note} target="_blank" rel="noreferrer"> 바로가기</a>
+                            )}
+                        </p>
                     </div>
                 ))}
+                {checklist.length === 0 && <p>표시할 항목이 없습니다.</p>}
             </div>
         </div>
     );

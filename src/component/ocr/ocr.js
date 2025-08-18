@@ -6,10 +6,13 @@ import BottomNav from "../../lib/nav/BottomNav";
 import axios from "axios";
 import "./ocr.css";
 
+import { API_BASE } from "../../config/apiBase";
+const MEMBER_ID = 1; // 임의 아이디
+
 const Ocr = () => {
     const navigate = useNavigate();
     const [loading, setLoading] = useState(false);
-    const [error, setError] = useState(null);
+    const [error, setError]     = useState(null);
 
     const videoRef = useRef(null);
     const streamRef = useRef(null);
@@ -17,29 +20,44 @@ const Ocr = () => {
 
     const goHome = () => navigate("/");
 
-    const handleUpload = async (e) => {
-        const file = e.target.files[0];
-        if (!file) return setError("파일을 선택해주세요.");
+    const callAnalyze = async (contractId) => {
+        const { data } = await axios.post(`${API_BASE}/api/contracts/${contractId}/analyze`);
+        return data; // { contractId, issues: [...], laws: [...] }
+    };
 
-        const formData = new FormData();
-        formData.append("file", file);
-
+    const uploadAndAnalyze = async (file) => {
         setLoading(true);
         setError(null);
         try {
-            const response = await axios.post(
-                "https://port-0-mobicom-sw-contest-2025-umnqdut2blqqevwyb.sel4.cloudtype.app/api/contract/1/upload-and-translate",
+            const formData = new FormData();
+            formData.append("file", file);
+            const upRes = await axios.post(
+                `${API_BASE}/api/contract/${MEMBER_ID}/upload`,
                 formData,
-                {headers: {"Content-Type": "multipart/form-data"}}
+                { headers: { "Content-Type": "multipart/form-data" } }
             );
-            navigate("/ContractResultPage", {state: {result: response.data}});
+            const contractId = upRes.data?.contractId ?? upRes.data?.id;
+            if (!contractId) throw new Error("contractId를 받지 못했습니다.");
+
+            const analysis = await callAnalyze(contractId);
+
+            navigate("/ContractResultPage", { state: { contractId, analysis } });
         } catch (err) {
-            console.error("업로드 실패:", err);
-            setError(err.response ? `업로드 실패 (${err.response.status}): ${JSON.stringify(err.response.data)}`
-                : `업로드 실패: ${err.message}`);
+            console.error(err);
+            setError(
+                err?.response
+                    ? `업로드/분석 실패 (${err.response.status}): ${JSON.stringify(err.response.data)}`
+                    : `업로드/분석 실패: ${err.message}`
+            );
         } finally {
             setLoading(false);
         }
+    };
+
+    const handleUpload = async (e) => {
+        const file = e.target.files?.[0];
+        if (!file) return setError("파일을 선택해주세요.");
+        await uploadAndAnalyze(file);
     };
 
     useEffect(() => {
@@ -47,7 +65,7 @@ const Ocr = () => {
         (async () => {
             try {
                 const stream = await navigator.mediaDevices.getUserMedia({
-                    video: {facingMode: {ideal: "environment"}, width: {ideal: 1280}, height: {ideal: 720}},
+                    video: { facingMode: { ideal: "environment" }, width: { ideal: 1280 }, height: { ideal: 720 } },
                     audio: false,
                 });
                 if (canceled) return;
@@ -57,8 +75,7 @@ const Ocr = () => {
                     await videoRef.current.play();
                     setCameraReady(true);
                 }
-            } catch (e) {
-                console.error(e);
+            } catch {
                 setError("카메라 권한을 허용해 주세요. (HTTPS 필요)");
             }
         })();
@@ -95,15 +112,7 @@ const Ocr = () => {
             const blob = await new Promise(resolve => canvas.toBlob(resolve, "image/jpeg", 0.92));
             if (!blob) throw new Error("이미지 캡처 실패");
 
-            const formData = new FormData();
-            formData.append("file", new File([blob], "scan.jpg", {type: "image/jpeg"}));
-
-            const response = await axios.post(
-                "https://port-0-mobicom-sw-contest-2025-umnqdut2blqqevwyb.sel4.cloudtype.app/api/contract/1/upload-and-translate",
-                formData,
-                {headers: {"Content-Type": "multipart/form-data"}}
-            );
-            navigate("/ContractResultPage", {state: {result: response.data}});
+            await uploadAndAnalyze(new File([blob], "scan.jpg", { type: "image/jpeg" }));
         } catch (err) {
             console.error(err);
             setError(err.message || "스캔 실패");
@@ -122,7 +131,6 @@ const Ocr = () => {
                         <IoClose className="backBtn" onClick={goHome}/>
                         <p className="overlayTitle">계약서 스캔</p>
                     </div>
-
 
                     <div className="mask">
                         <div className="guideBox">
@@ -155,14 +163,10 @@ const Ocr = () => {
                     </button>
                 </div>
 
-
                 {loading && <p className="progressText">업로드 중입니다...</p>}
                 {error && <p className="errorText">{error}</p>}
             </main>
 
-            <footer>
-                <BottomNav/>
-            </footer>
         </>
     );
 };

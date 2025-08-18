@@ -1,10 +1,12 @@
 import React from 'react';
 import styles from './ContractPage.module.css';
 import { useNavigate } from 'react-router-dom';
-import { MdCheckCircleOutline, MdOutlineDocumentScanner } from "react-icons/md";
+import { MdOutlineDocumentScanner } from "react-icons/md";
 import { FaRegFileAlt, FaUser } from 'react-icons/fa';
-import { BsQuestionCircle } from 'react-icons/bs';
 import { FiCheck } from "react-icons/fi";
+import axios from "axios";
+
+import { API_BASE } from "../../config/apiBase";
 
 export default function ContractPage() {
     const navigate = useNavigate();
@@ -13,10 +15,26 @@ export default function ContractPage() {
         navigate('/ocr');
     };
 
-    const handleGoToChecklist = () => {
-        navigate('/ContractResultPage');
+    const handleGoToChecklist = async () => {
+        try {
+            const { data } = await axios.get(`${API_BASE}/api/contract`);
+            const list = Array.isArray(data) ? data : [];
+            if (!list.length) {
+                alert("등록된 계약서가 없습니다. 먼저 업로드 해주세요.");
+                return;
+            }
+            const latest = list[0];
+            const contractId = latest.contractId ?? latest.id;
+            if (!contractId) {
+                alert("계약 ID를 확인할 수 없습니다.");
+                return;
+            }
+            navigate('/ContractResultPage', { state: { contractId } });
+        } catch (e) {
+            console.error(e);
+            alert(e?.response ? `목록 조회 실패 (${e.response.status})` : e?.message || "목록 조회 실패");
+        }
     };
-
 
     return (
         <div className={styles.container}>
@@ -49,7 +67,7 @@ export default function ContractPage() {
                     tabIndex={0}
                 >
                     <span className={styles.cardTitle}>체크리스트</span>
-                    <p className={styles.cardDesc}><strong>8개</strong><br />조회하기</p>
+                    <p className={styles.cardDesc}><strong>조회하기</strong></p>
                     <div className={styles.cardBadge}>
                         <FiCheck className={styles.cardBadgeIcon} size={28} />
                     </div>
