@@ -4,6 +4,7 @@ import Employment from './component/mydocument/employment';
 import Ocr from './component/ocr/ocr';
 import ContractPage from "./component/ContractPage/ContractPage"
 import ContractResult from "./component/ContractResult/ContractResult";
+import ProcessingPage from "./component/processing/ProcessingPage";
 
 function App() {
     return (
@@ -11,6 +12,7 @@ function App() {
             <Routes>
                 <Route path="/" element={<ContractPage/>}/>
                 <Route path="/ocr" element={<Ocr/>}/>
+                <Route path="/processing/:contractId" element={<ProcessingPage />} />
                 <Route path="/ContractResultPage" element={<ContractResult/>}/>
                 <Route path="/employment" element={<Employment/>}/>
             </Routes>
