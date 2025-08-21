@@ -11,6 +11,8 @@ import SignupPage from "./component/ContractPage/SignUp"
 import ProcessingPage from "./component/processing/ProcessingPage";
 import ContractResult from "./component/ContractResult/ContractResult";
 
+import Chating from "./component/Chating/Chating";
+
 function App() {
     return (
         <BrowserRouter>
@@ -22,6 +24,7 @@ function App() {
                 <Route path="/ContractResultPage" element={<ContractResult/>}/>
                 <Route path="/employment" element={<Employment/>}/>
                 <Route path="/SignupPage" element={<SignupPage/>}/>
+                <Route path="/Chating" element={<Chating/>}/>
             </Routes>
         </BrowserRouter>
     );

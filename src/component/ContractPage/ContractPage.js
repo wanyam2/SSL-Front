@@ -207,7 +207,7 @@ const ContractPage = () => {
 
             {/* 하단 카드들 */}
             <div className={styles.bottomSection}>
-                <div className={styles.smallCard}>
+                <div className={styles.smallCard} onClick={() => navigate("/chating")}>
                     <div>
                         <p className={styles.cardTitle}>AI 대화</p>
                         <div>
