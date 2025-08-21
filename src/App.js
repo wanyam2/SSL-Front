@@ -8,16 +8,19 @@ import Home from "./component/home/home"
 import ChecklistPage from "./component/ChecklistPage/ChecklistPage"
 import SignupPage from "./component/ContractPage/SignUp"
 
+import ProcessingPage from "./component/processing/ProcessingPage";
+import ContractResult from "./component/ContractResult/ContractResult";
+
 function App() {
     return (
         <BrowserRouter>
             <Routes>
-                <Route path="/ContractPage" element={<ContractPage/>}/>
+                <Route path="/" element={<ContractPage/>}/>
                 <Route path="/checklist" element={<ChecklistPage />} />
                 <Route path="/ocr" element={<Ocr/>}/>
-                {/* <Route path="/ContractResultPage" element={<ContractResult/>}/> */}
+                <Route path="/processing/:contractId" element={<ProcessingPage />} />
+                <Route path="/ContractResultPage" element={<ContractResult/>}/>
                 <Route path="/employment" element={<Employment/>}/>
-                <Route path="/" element={<Home/>}/>
                 <Route path="/SignupPage" element={<SignupPage/>}/>
             </Routes>
         </BrowserRouter>
