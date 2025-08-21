@@ -174,3 +174,52 @@
 }
 .progressText { color: #fff; font-size: 14px; }
 .errorText { color: #ff6b6b; font-size: 14px; }
+
+.switchBtn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
+    margin-left: 8px;
+
+    background: rgba(0,0,0,0.45);
+    border: 1px solid rgba(255,255,255,0.4);
+    border-radius: 50%;
+    color: #fff;
+    font-size: 20px;
+    cursor: pointer;
+
+    backdrop-filter: blur(6px);
+    transition: background 0.25s ease, transform 0.25s ease;
+}
+
+.switchBtn:hover {
+    background: rgba(255,255,255,0.15);
+    transform: scale(1.05);
+}
+
+.switchBtn:active {
+    transform: scale(0.95);
+}
+
+.cameraControls {
+    position: absolute;
+    right: 16px;
+    top: 24px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    z-index: 4;
+}
+
+.cameraSelect {
+    height: 32px;
+    padding: 0 6px;
+    font-size: 13px;
+    background: rgba(0,0,0,0.5);
+    color: #fff;
+    border: 1px solid rgba(255,255,255,0.3);
+    border-radius: 6px;
+    backdrop-filter: blur(6px);
+}
