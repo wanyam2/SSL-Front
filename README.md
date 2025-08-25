@@ -1,70 +1,63 @@
-# Getting Started with Create React App
+<div align="center">
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+<!-- logo -->
+<img src="https://github.com/user-attachments/assets/bd9bde85-af35-45da-800a-1fc829db514f" width="100"/>
 
-## Available Scripts
+### SSL
+[<img src="https://img.shields.io/badge/프로젝트 기간-2025.07.29~2025.08.24-fab2ac?style=flat&logo=&logoColor=white" />]()
 
-In the project directory, you can run:
+</div> 
 
-### `npm start`
+## 📝 소개
+사회 초년생을 위한 법률자문서비스 SSL입니다.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+<br />
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### 화면 구성
+|내 계약 탭|
+|:---:|
+|<img src="https://github.com/user-attachments/assets/e8bfc6ba-6a15-41d9-a0c2-32edbc0718a4" width="450"/>|
+|가장 기본으로 보게 되는 화면|
 
-### `npm test`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+|스캔|
+|:---:|
+|<img src="https://github.com/user-attachments/assets/ecce0fbb-a5cf-47fe-8607-41b9f3ca29b1" width="450"/>|
+|궁금한 계약서를 촬영하거나 업로드하여 AI에게 분석을 맡김|
 
-### `npm run build`
+|분석 조회 - 기본 정보|
+|:---:|
+|<img src="https://github.com/user-attachments/assets/ca6c7379-3b2f-4292-86cf-2e8108810c15" width="450"/>|
+|분석 결과, 해당 회사에 관한 정보를 알려줌|
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+|분석 조회 - 핵심 조항|
+|:---:|
+|<img src="https://github.com/user-attachments/assets/9a21ccec-5b0b-4c39-9cd8-6b547feecdaa" width="450"/>|
+|분석 결과, 해당 계약서의 핵심 조항에 대해 설명해줌|
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+|체크리스트|
+|:---:|
+|<img src="https://github.com/user-attachments/assets/29150c42-dedc-4b3e-a46d-2a146631f310" width="450"/>|
+|사용자가 직접 계약서를 보며 체크할 수 있는 화면|
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+|AI 대화|
+|:---:|
+|<img src="https://github.com/user-attachments/assets/13e17680-107a-444c-a764-c1e560fe1f70" width="450"/>|
+|AI 챗봇 상담을 통해 법률 자문을 구할 수 있음|
 
-### `npm run eject`
+<br />
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## ⚙ 기술 스택
+> skills 폴더에 있는 아이콘을 이용할 수 있습니다.
+### Front-end
+<div>
+<img src="https://github.com/yewon-Noh/readme-template/blob/main/skills/JavaScript.png?raw=true" width="80">
+<img src="https://github.com/yewon-Noh/readme-template/blob/main/skills/React.png?raw=true" width="80">
+</div>
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+<br />
+## 💁‍♂️ 프로젝트 팀원
+|Frontend|Frontend|
+|:---:|:---:|
+| ![](https://github.com/OckJuYong.png?size=120) | ![](https://github.com/wanyam2.png?size=120) |
+|[옥주용](https://github.com/OckJuYong)|[이은채](https://github.com/wanyam2)|
